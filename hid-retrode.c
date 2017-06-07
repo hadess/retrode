@@ -25,7 +25,6 @@ static int retrode_input_configured(struct hid_device *hdev,
 	struct hid_field *field = hi->report->field[0];
 	const char *suffix;
 	int number = 0;
-	unsigned int len;
 	char *name;
 
 	switch (field->report->id) {
@@ -47,18 +46,18 @@ static int retrode_input_configured(struct hid_device *hdev,
 		suffix = "Unknown";
 	}
 
-	len = strlen(CONTROLLER_NAME_BASE) + strlen(suffix) +
-			number ? 5 : 2;
-	name = devm_kzalloc(&hi->input->dev, len, GFP_KERNEL);
-	if (name) {
-		if (number)
-			sprintf(name, "%s %s #%d", CONTROLLER_NAME_BASE,
+	if (number)
+		name = devm_kasprintf(&hdev->dev, GFP_KERNEL,
+				"%s %s #%d", CONTROLLER_NAME_BASE,
 				suffix, number);
-		else
-			sprintf(name, "%s %s", CONTROLLER_NAME_BASE,
-				suffix);
-		hi->input->name = name;
-	}
+	else
+		name = devm_kasprintf(&hdev->dev, GFP_KERNEL,
+				"%s %s", CONTROLLER_NAME_BASE, suffix);
+
+	if (!name)
+		return -ENOMEM;
+
+	hi->input->name = name;
 
 	return 0;
 }

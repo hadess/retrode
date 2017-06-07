@@ -73,16 +73,12 @@ static int retrode_probe(struct hid_device *hdev,
 	hdev->quirks |= HID_QUIRK_MULTI_INPUT;
 
 	ret = hid_parse(hdev);
-	if (ret) {
-		hid_err(hdev, "parse failed\n");
+	if (ret)
 		return ret;
-	}
 
 	ret = hid_hw_start(hdev, HID_CONNECT_DEFAULT);
-	if (ret) {
-		hid_err(hdev, "hw start failed\n");
+	if (ret)
 		return ret;
-	}
 
 	return 0;
 }

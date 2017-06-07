@@ -34,7 +34,7 @@ static int retrode_input_configured(struct hid_device *hdev,
 		break;
 	case 1:
 	case 2:
-		suffix = "SNES";
+		suffix = "SNES / N64";
 		number = field->report->id;
 		break;
 	case 3:

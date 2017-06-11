@@ -7,7 +7,7 @@ come to light.
   for the N64 and the SNES pads, so we'd know which one
   is plugged in (as the plugin needs to be plugged into
   the device on boot anyway)
-- Remove button 3 from the mouse
+- Remove button 3 from the mouse in firmware
 - Differentiate 3/6/2/1 button controllers for the Megadrive port?
 - Export the exact firmware in bcdDevice? (no beta tag)
 - Bump folder mtime when loading a new cartridge

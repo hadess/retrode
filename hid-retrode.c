@@ -23,6 +23,7 @@ static int retrode_input_configured(struct hid_device *hdev,
 					struct hid_input *hi)
 {
 	struct hid_field *field = hi->report->field[0];
+	struct input_dev *input = hi->input;
 	const char *suffix;
 	int number = 0;
 	char *name;
@@ -30,6 +31,8 @@ static int retrode_input_configured(struct hid_device *hdev,
 	switch (field->report->id) {
 	case 0:
 		suffix = "SNES Mouse";
+		/* The mouse only has 2 physical buttons */
+		__clear_bit(BTN_MIDDLE, input->keybit);
 		break;
 	case 1:
 	case 2:
